@@ -1,0 +1,174 @@
+/*
+  styles.css
+  - Glassmorphic UI and responsive layout for the 3D Visualizer
+  - Keep styles modular and document important rules for maintainability
+*/
+
+:root {
+  --bg: #0b0f15; /* app background */
+  --glass-bg: rgba(255,255,255,0.06); /* panel background */
+  --accent: #cec004; /* highlight */
+  --muted: #9fb4ff;
+}
+
+/* Base layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, #07101a 0%, #0b0f15 100%);
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full-viewport app container */
+body {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  overflow: hidden; /* viewer handles its own scrolling */
+}
+
+/* Viewer wrapper ensures the model area is centered and scales nicely */
+.viewer-wrapper {
+  position: absolute;
+  inset: 0; /* attach to all sides */
+  display: grid;
+  grid-template-rows: auto 1fr; /* header + viewer */
+}
+
+/* Header: glassmorphic panel that sits above the viewer */
+.header {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 16px;
+  z-index: 40;
+  width: calc(100% - 32px);
+  max-width: 1200px;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Inner header content layout */
+.header .header-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Logo sizing and accessible layout */
+#logo {
+  height: 56px; /* optimized for header */
+  width: auto;
+  display: block;
+}
+
+.site-title {
+  color: #e6eef8;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Small descriptive text beside title */
+.site-subtitle {
+  color: rgba(230,238,248,0.7);
+  font-size: 0.85rem;
+  margin-left: 8px;
+}
+
+/* model-viewer fills remaining area and keeps aspect */
+model-viewer {
+  width: 100%;
+  height: 100vh; /* fill viewport below header */
+  display: block;
+}
+
+/* UI control panel (glass) */
+#ui {
+  position: fixed;
+  left: 24px;
+  top: 110px;
+  z-index: 45;
+  width: 220px;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Buttons: tactile glass buttons */
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e6eef8;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.5);
+}
+
+.selected {
+  color: var(--bg);
+  background: linear-gradient(90deg, var(--accent), #ffd84d);
+  border: none;
+}
+
+/* Description area: small caption with ARIA live updates */
+#description {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: rgba(230,238,248,0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .header { width: calc(100% - 24px); padding: 10px 12px; }
+  #ui { left: 12px; top: 90px; width: 190px; }
+  #logo { height: 44px; }
+}
+
+@media (max-width: 600px) {
+  /* Mobile: move UI to bottom for easy thumb access */
+  #ui {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .header { top: 10px; }
+  model-viewer { height: calc(100vh - 84px); }
+}
+
+/* Utility: visually hidden (for accessibility messages) */
+.sr-only { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
