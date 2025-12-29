@@ -86,10 +86,9 @@
 
     <!-- Control panel: calls selectMesh(name, element) defined in app.js -->
     <aside id="ui" role="region" aria-label="Model controls">
-        <button onclick="selectMesh('Mesh 1 Mat', this)" class="selected" aria-pressed="true">Tilt</button>
-        <button onclick="selectMesh('Mesh 2 Mat', this)" aria-pressed="false">Lift</button>
-        <button onclick="selectMesh('Mesh 3 Mat', this)" aria-pressed="false">Boom</button>
-        <div id="description" aria-live="polite" style="margin-top:8px; font-size:0.9rem; color:rgba(230,238,248,0.9);">Select a part to view details.</div>
+        <button onclick="selectMesh('Mesh 1 Mat', this)" class="selected" aria-pressed="true" aria-label="Tilt">Tilt</button>
+        <button onclick="selectMesh('Mesh 2 Mat', this)" aria-pressed="false" aria-label="Lift">Lift</button>
+        <button onclick="selectMesh('Mesh 3 Mat', this)" aria-pressed="false" aria-label="Boom">Boom</button>
     </aside>
 
     <!-- Main viewer wrapper: keeps viewer responsive and under the header -->

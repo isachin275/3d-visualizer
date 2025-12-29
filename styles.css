@@ -9,6 +9,8 @@
   --glass-bg: rgba(255,255,255,0.06); /* panel background */
   --accent: #cec004; /* highlight */
   --muted: #9fb4ff;
+  --ui-space: 96px; /* reserved space at bottom for control pill menu */
+  --header-space: 84px; /* approximate fixed header height */
 }
 
 /* Base layout */
@@ -32,10 +34,15 @@ body {
 
 /* Viewer wrapper ensures the model area is centered and scales nicely */
 .viewer-wrapper {
+  /* place the viewer area between header and bottom controls
+     use top/bottom offsets so inner elements can size with 100% height */
   position: absolute;
-  inset: 0; /* attach to all sides */
-  display: grid;
-  grid-template-rows: auto 1fr; /* header + viewer */
+  top: var(--header-space);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: var(--ui-space);
+  display: block;
 }
 
 /* Header: glassmorphic panel that sits above the viewer */
@@ -91,25 +98,31 @@ body {
 /* model-viewer fills remaining area and keeps aspect */
 model-viewer {
   width: 100%;
-  height: 100vh; /* fill viewport below header */
+  height: 100%; /* fill the viewer-wrapper which already accounts for top/bottom space */
   display: block;
 }
 
-/* UI control panel (glass) */
+/* UI control panel (glass) - bottom horizontal pill menu
+   - placed at bottom center to avoid covering the main model area
+   - horizontally scrollable on very small screens for accessibility */
 #ui {
   position: fixed;
-  left: 24px;
-  top: 110px;
-  z-index: 45;
-  width: 220px;
-  padding: 12px;
-  border-radius: 12px;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 8px 12px;
+  border-radius: 999px;
   background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  box-shadow: 0 6px 18px rgba(2,6,23,0.5);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.55);
+  backdrop-filter: blur(8px);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: 8px;
+  max-width: calc(100% - 48px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Buttons: tactile glass buttons */
@@ -119,11 +132,12 @@ button {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.06);
   color: #e6eef8;
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
+  flex: 0 0 auto;
 }
 
 button:hover {
@@ -137,37 +151,34 @@ button:hover {
   border: none;
 }
 
-/* Description area: small caption with ARIA live updates */
-#description {
-  margin-top: 6px;
-  font-size: 0.85rem;
-  color: rgba(230,238,248,0.9);
-}
+/* removed description panel - controls are compact and ARIA-enabled */
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .header { width: calc(100% - 24px); padding: 10px 12px; }
-  #ui { left: 12px; top: 90px; width: 190px; }
+  /* #ui { left: 12px; top: 90px; width: 190px; } */
   #logo { height: 44px; }
 }
 
 @media (max-width: 600px) {
-  /* Mobile: move UI to bottom for easy thumb access */
-  #ui {
-    position: fixed;
+  :root { --ui-space: 110px; }
+  /* Mobile: keep bottom pill, but make buttons slightly larger and allow scrolling */
+  /* #ui {
     left: 50%;
-    bottom: 18px;
+    bottom: 14px;
     transform: translateX(-50%);
-    width: calc(100% - 40px);
-    max-width: 520px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    width: calc(100% - 32px);
+    max-width: 720px;
     padding: 10px;
-  }
+    gap: 10px;
+  } */
 
   .header { top: 10px; }
-  model-viewer { height: calc(100vh - 84px); }
+}
+
+@media (max-width: 420px) {
+  /* hide the inline description to keep pill compact on very small screens */
+  #description { display: none; }
 }
 
 /* Utility: visually hidden (for accessibility messages) */

@@ -14,12 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const originalColors = new Map();
 
-  /* Descriptions for accessible UI and the description panel */
-  const descriptions = {
-    "Mesh 1 Mat": "This is the arm of the JCB, used for digging and lifting.",
-    "Mesh 2 Mat": "This is the bucket, perfect for scooping and loading materials.",
-    "Mesh 3 Mat": "This is the cabin, where the operator controls the machine."
-  };
+  /* Note: description panel removed from UI; buttons are ARIA-labelled */
 
   const cameraPositions = {
     "Mesh 1 Mat": { yaw: -75, pitch: 75 },
@@ -105,9 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         viewer.cameraTarget = `${target.x}m ${target.y}m ${target.z}m`;
       }
 
-      // Update description panel for both visual users and screen readers
-      const descEl = document.getElementById('description');
-      if (descEl) descEl.textContent = descriptions[meshName] || 'Part selected.';
+      // No description panel in the compact UI; rely on button ARIA labels.
     }
   };
 
