@@ -1,34 +1,51 @@
 # 3D Visualizer
 
-An interactive 3D visualization tool for viewing and inspecting heavy machinery models in the browser.
+An interactive 3D visualization tool for viewing and customizing product and industrial models directly in the browser.
+
+This project demonstrates how modern web technologies can be used to build performant, interactive 3D experiences without heavy frameworks, focusing on clean integration, usability, and extensibility.
+
+## Live Demo
+https://tryverse.space/projects/3d-visualizer/
 
 ## Features
-- Interactive model inspection with `<model-viewer>`
-- Part highlighting and camera presets
-- Responsive UI and simple controls
+- Load and render 3D models using <model-viewer>
+- Orbit, zoom, and pan interactions
+- Material color customization
+- Mesh highlighting
+- Responsive layout for desktop and tablet
+
+## Why this project
+I built this to explore:
+- How far browser-native 3D (via <model-viewer>) can be pushed without custom engines
+- How to structure rendering logic cleanly separate from UI logic
+- How to design interactive visualization for product, industrial, and educational use cases
 
 ## Tech Stack
 - HTML, CSS, JavaScript
-- `<model-viewer>` web component (glTF / GLB support)
+- <model-viewer> Web Component
+- WebGL (browser native)
+- No build step / framework required
 
-## Live Demo
-https://tryverse.space/projects/3d-visualizer
+## Architecture (brief)
+- UI logic and user interaction handling in `app.js`
+- Rendering and model configuration via <model-viewer>
+- Asset management separated under `/assets`
 
-## Local development / Preview
-1. From the project root run a simple HTTP server (recommended):
+## Use Cases
+- Product visualization
+- Industrial model inspection
+- Virtual showrooms
+- Educational simulations
 
-```bash
-python -m http.server 8000
-```
-
-2. Open http://localhost:8000/index.html in your browser.
-
-Notes:
-- The sample GLB model is at `assets/models/JCB_1.glb`.
-- Replace the canonical/JSON-LD URLs in `index.html` with your production URL.
-
-## Deployment
-- Upload all files to your static hosting provider (Netlify, Vercel, S3, etc.) and ensure the canonical URL in `index.html` matches the deployed location.
+## Setup
+1. Clone the repository
+2. Serve locally using any static server or open `index.html`
+3. No build process required
 
 ## Screenshots
-(Add screenshots to the `screenshots/` folder and reference them here.)
+Add a representative screenshot of the visualizer (placed in the `screenshots` folder):
+
+- ![Screenshot](screenshots/screenshot.png)
+
+## Author
+Sachin Pradhan — Senior Android Engineer / Mobile Technology Lead
