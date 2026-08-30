@@ -5,8 +5,7 @@ An interactive 3D visualization tool for viewing and customizing product and ind
 This project demonstrates how modern web technologies can be used to build performant, interactive 3D experiences without heavy frameworks, focusing on clean integration, usability, and extensibility.
 
 ## Live Demo
-https://tryverse.space/projects/3d-visualizer/
-
+[3d-visualizer/](https://isachin275.github.io/3d-visualizer/)
 ## Features
 - Load and render 3D models using <model-viewer>
 - Orbit, zoom, and pan interactions
